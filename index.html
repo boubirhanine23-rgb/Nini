@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be My Valentine 💖</title>
+
+<style>
+* { box-sizing: border-box; font-family: 'Trebuchet MS', sans-serif; }
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0e2a4f, #000814 70%);
+  color: white;
+  overflow: hidden;
+}
+
+/* ---------- Soft animations ---------- */
+@keyframes float {
+  from { transform: translateY(0); opacity: .7; }
+  to { transform: translateY(-120px); opacity: 0; }
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 30px #fff7c7; }
+  50% { box-shadow: 0 0 60px #fff7c7; }
+  100% { box-shadow: 0 0 30px #fff7c7; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Layout ---------- */
+.scene {
+  display: none;
+  height: 100vh; width: 100vw;
+  padding: 20px;
+  text-align: center;
+}
+.scene.active {
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+button {
+  margin: 10px;
+  padding: 12px 22px;
+  border: none; border-radius: 25px;
+  background: #ffb3d9; color: #000;
+  font-size: 16px; cursor: pointer;
+}
+button:hover { transform: scale(1.04); }
+
+/* ---------- Moon ---------- */
+.moon {
+  position: absolute; top: 40px; right: 40px;
+  width: 110px; height: 110px;
+  background: #fff7c7; border-radius: 50%;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+/* ---------- Floating hearts & petals ---------- */
+.floaty {
+  position: absolute; bottom: -20px;
+  animation: float 10s linear infinite;
+  pointer-events: none;
+}
+.heart { color: #ff9acb; font-size: 18px; }
+.petal { color: #ffd6e7; font-size: 14px; }
+
+/* ---------- Decorations ---------- */
+.wave {
+  position: absolute; bottom: 0; width: 100%;
+  height: 120px; background: rgba(255,255,255,0.08);
+}
+.fish {
+  font-size: 48px;
+  animation: dance 1.4s ease-in-out infinite alternate;
+}
+@keyframes dance {
+  from { transform: translateX(-8px) rotate(-8deg); }
+  to { transform: translateX(8px) rotate(8deg); }
+}
+.firework {
+  font-size: 36px;
+  animation: pop 1.4s ease-in-out infinite;
+}
+@keyframes pop {
+  0% { opacity: 0; transform: scale(.6); }
+  50% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 0; transform: scale(.6); }
+}
+
+/* ---------- Tap screen ---------- */
+#tap {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.55);
+  z-index: 10;
+}
+#tap .card {
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(6px);
+  padding: 24px 28px; border-radius: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="moon"></div>
+
+<!-- Tap to start -->
+<div id="tap">
+  <div class="card">
+    <h3>Tap to start ✨</h3>
+    <p>Soft music • night vibes</p>
+    <button onclick="start()">Start</button>
+  </div>
+</div>
+
+<!-- Audio -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_91f428cd03.mp3" type="audio/mpeg">
+</audio>
+<audio id="fireworks">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_94c3c7e3c0.mp3" type="audio/mpeg">
+</audio>
+<audio id="fishsound">
+  <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_5fbb1e4e14.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Scenes -->
+<div id="s1" class="scene active">
+  <h2>🌙 Under the moonlight…</h2>
+  <p>The sea was calm,<br>but Hanine wasn’t 💫</p>
+  <p>Bibou walks slowly… Hanine laughs, full of life.</p>
+  <button onclick="next(2)">Next</button>
+</div>
+
+<div id="s2" class="scene">
+  <p><strong>Hanine:</strong> I have a surprise for you…</p>
+  <button onclick="next(3)">What is it?</button>
+</div>
+
+<div id="s3" class="scene">
+  <p>A little brown boat appears 🚤</p>
+  <p>Bibou helps Hanine climb.</p>
+  <p>They laugh in the middle of the ocean 🌊</p>
+  <p>A bottle floats by 🍾</p>
+  <button onclick="next(4)">No, it may be dangerous</button>
+  <button onclick="next(4)">Yes queen, whatever you say</button>
+</div>
+
+<div id="s4" class="scene">
+  <p>📜 The letter says:</p>
+  <p>
+    You are my favorite person and I’m so lucky to have someone as lovely as you.<br>
+    I love you so much and by that I mean everyday I love you more than the day before.<br><br>
+    habibi glbeyyy 💖<br><br>
+    Be my Valentine,<br>
+    bessif 3lik
+  </p>
+  <button onclick="next(5)">No 💀</button>
+  <button onclick="next(6)">Yes ❤️</button>
+</div>
+
+<div id="s5" class="scene">
+  <p>🌊 Hanine splashes Bibou playfully 😂</p>
+  <p>Try again.</p>
+  <button onclick="next(6)">Yes ❤️</button>
+</div>
+
+<div id="s6" class="scene">
+  <p>Hanine jumps to hug Bibou 💕</p>
+  <p>They tumble into the water 🌊</p>
+  <p><strong>Hanine:</strong> I love you forever, bibou.</p>
+  <p><strong>Bibou:</strong> tgdbi.</p>
+  <p><strong>Bibou:</strong> I love you more, habibi.</p>
+  <button onclick="final()">Finish 💖</button>
+</div>
+
+<div id="s7" class="scene">
+  <div class="firework">🎆 🎆 🎆</div>
+  <p>They hug under the fireworks 💕</p>
+  <div class="fish">🐟💃</div>
+  <p><strong>HAPPY VALENTINEEEEE 😂💕🌸</strong></p>
+</div>
+
+<script>
+function start(){
+  document.getElementById('tap').style.display='none';
+  const m=document.getElementById('music');
+  m.volume=.45; m.play();
+  spawnFloaties();
+}
+function next(n){
+  document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
+}
+function final(){
+  next(7);
+  document.getElementById("fireworks").play();
+  document.getElementById("fishsound").play();
+}
+function spawnFloaties(){
+  setInterval(()=>{
+    const e=document.createElement('div');
+    e.className='floaty '+(Math.random()>.5?'heart':'petal');
+    e.textContent=Math.random()>.5?'❤':'❀';
+    e.style.left=Math.random()*100+'vw';
+    e.style.animationDuration=(8+Math.random()*6)+'s';
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),14000);
+  },900);
+}
+</script>
+
+<div class="wave"></div>
+</body>
+</html>

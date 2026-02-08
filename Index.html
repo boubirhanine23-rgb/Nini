@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be My Valentine 💖</title>
+
+<style>
+* { box-sizing: border-box; font-family: 'Trebuchet MS', sans-serif; }
+body {
+  margin: 0;
+  background: linear-gradient(#0b1d3a, #000814);
+  color: white;
+  overflow: hidden;
+}
+
+.scene {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  text-align: center;
+}
+
+.scene.active { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+button {
+  margin: 10px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 25px;
+  background: #ffb3d9;
+  color: #000;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover { transform: scale(1.05); }
+
+.moon {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 100px;
+  height: 100px;
+  background: #fff7c7;
+  border-radius: 50%;
+  box-shadow: 0 0 40px #fff7c7;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  background: rgba(255,255,255,0.1);
+}
+
+.fish {
+  font-size: 50px;
+  animation: dance 1s infinite alternate;
+}
+
+@keyframes dance {
+  from { transform: translateX(-10px) rotate(-10deg); }
+  to { transform: translateX(10px) rotate(10deg); }
+}
+
+.firework {
+  font-size: 40px;
+  animation: pop 1s infinite;
+}
+
+@keyframes pop {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="moon"></div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_91f428cd03.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="fireworks">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_94c3c7e3c0.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="fishsound">
+  <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_5fbb1e4e14.mp3" type="audio/mpeg">
+</audio>
+
+<div id="s1" class="scene active">
+  <h2>🌙 Under the moonlight…</h2>
+  <p>The sea was calm,<br>but Hanine wasn’t 💫</p>
+  <p>Bibou walks slowly…<br>Hanine laughs, full of life.</p>
+  <button onclick="next(2)">Next</button>
+</div>
+
+<div id="s2" class="scene">
+  <p><strong>Hanine:</strong> I have a surprise for you…</p>
+  <button onclick="next(3)">What is it?</button>
+</div>
+
+<div id="s3" class="scene">
+  <p>A little brown boat appears 🚤</p>
+  <p>Bibou helps Hanine climb.</p>
+  <p>They laugh in the middle of the ocean 🌊</p>
+  <p>A bottle floats by 🍾</p>
+  <button onclick="next(4)">No, it may be dangerous</button>
+  <button onclick="next(4)">Yes queen, whatever you say</button>
+</div>
+
+<div id="s4" class="scene">
+  <p>📜 The letter says:</p>
+  <p>
+    You are my favorite person and I’m so lucky to have someone as lovely as you.<br>
+    I love you so much and by that I mean everyday I love you more than the day before.<br><br>
+    habibi glbeyyy 💖<br><br>
+    Be my Valentine,<br>
+    bessif 3lik
+  </p>
+  <button onclick="nope()">No 💀</button>
+  <button onclick="next(6)">Yes ❤️</button>
+</div>
+
+<div id="s5" class="scene">
+  <p>🌊 Hanine throws Bibou into the ocean 😂</p>
+  <p>Try again.</p>
+  <button onclick="next(6)">Yes ❤️</button>
+  <button onclick="next(6)">Die ☠️</button>
+</div>
+
+<div id="s6" class="scene">
+  <p>Hanine jumps to hug Bibou 💕</p>
+  <p>They fall into the water 🌊</p>
+  <p><strong>Hanine:</strong> I love you forever, bibou.</p>
+  <p><strong>Bibou:</strong> tgdbi.</p>
+  <p>She throws him again 😭</p>
+  <p><strong>Bibou:</strong> I love you more, habibi.</p>
+  <button onclick="final()">Finish 💖</button>
+</div>
+
+<div id="s7" class="scene">
+  <div class="firework">🎆 🎆 🎆</div>
+  <p>They hug under the fireworks 💕</p>
+  <div class="fish">🐟💃</div>
+  <p><strong>HAPPY VALENTINEEEEE 😂💕🌸</strong></p>
+</div>
+
+<script>
+const music = document.getElementById("music");
+music.volume = 0.4;
+music.play();
+
+function next(n){
+  document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
+}
+
+function nope(){
+  next(5);
+}
+
+function final(){
+  next(7);
+  document.getElementById("fireworks").play();
+  document.getElementById("fishsound").play();
+}
+</script>
+
+<div class="wave"></div>
+</body>
+</html>
